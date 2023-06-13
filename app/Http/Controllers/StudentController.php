@@ -37,4 +37,48 @@ class StudentController extends Controller
         $student = Students::get();
         return view('home',compact('student'));
     }
+
+    public function update(Request $request)
+    {
+        $student = new Students();
+        $student->id = $request->id;
+        $student->name = $request->name;
+        $student->age = $request->age;
+        $student->dob = $request->dob;
+        $student->mobile = $request->mobile;
+        $student->email = $request->email;
+        $student->update();
+        $student = Students::get();
+        return view('home',compact('student'));
+    }
+
+    //Update
+    public function apiUpdate(Request $request)
+    {
+        
+        $student = Students::find($request->id);
+
+        // $student = new Students();
+        // $student->id = $request->id;
+        $student->name = $request->name;
+        $student->age = $request->age;
+        $student->dob = $request->dob;
+        $student->mobile = $request->mobile;
+        $student->email = $request->email;
+        $student->save();
+        echo 'Updated';
+    }
+
+    //delete
+    public function apiDelete(Request $request)
+    {
+        $student = Students::find($request->id);
+        $student->delete();
+        echo 'Deleted';
+    }
+
+    public function test()
+    {
+        echo "It is working";
+    }
 }
