@@ -28,3 +28,32 @@ Route::post('/test',[StudentController::class,'test']);
 Route::post('/updatedata',[ApiController::class,'updateData']);
 
 Route::post('/deletedata',[ApiController::class,'deletedata']);
+
+
+/**
+ * Create New user
+ */
+
+ Route::post('/addNewUser',[ApiController::class,'addNewUser']);
+
+ /**
+  * Add New Post
+  */
+
+  Route::post('/addNewPost',[ApiController::class,'addNewPost']);
+
+  /**
+   * Retrive All Post
+   */
+  Route::get('/getAllPostByUser/{id}',[ApiController::class,'getAllPostByUser']);
+
+/**
+ * Add New Comment
+ */
+
+ Route::post('/addNewComment',[ApiController::class,'addNewComment']);
+
+  /**
+   * Retrive Comments
+   */
+  Route::get('/getAllCommentsByPost/{id}',[ApiController::class,'getAllCommentsByPost']);

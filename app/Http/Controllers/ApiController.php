@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Students;
+use App\Models\User;
+use App\Models\post;
+use App\Models\comment;
 use Validator;
 
 class ApiController extends Controller
@@ -91,4 +94,71 @@ class ApiController extends Controller
             return json_encode($result);
         }
     }
+
+    /**
+     * Add New user
+     */
+    public function addNewUser(Request $request)
+    {
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        echo "User Saved";
+    }
+
+    /**
+     * Add New Post
+     */
+    public function addNewPost(Request $request)
+    {
+        $user = User::find($request->id);
+
+        $post = new Post;
+        //$post->user_id = $request->id;
+        $post->title = $request->title;
+        $post->description = $request->description;
+
+        $user->post()->save($post);
+        echo "Post Saved";
+
+    }
+
+    /**
+     * Add new Comment
+     */
+    public function addNewComment(Request $request)
+    {
+        $post = post::find($request->id);
+
+        //return json_encode($post);
+        $data = new comment;
+        $data->user_id = $request->user_id;
+        $data->comments = $request->comments;
+        $post->comment->save($data);
+        echo "New Comments Saved";
+    }
+
+    /**
+     * Retrive All Post
+     */
+    public function getAllPostByUser($id)
+    {
+        $data = User::find($id);
+        $post = $data->posts;
+        return json_encode($post);
+    }
+
+    /**
+     * Retrive comments by Post
+     */
+    public function getAllCommentsByPost($id)
+    {
+        $data = post::find($id);
+        $comments = $data->comments;
+        return json_encode($comments);
+    }
+
+    
 }
