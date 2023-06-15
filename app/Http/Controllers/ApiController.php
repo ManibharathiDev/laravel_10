@@ -136,7 +136,7 @@ class ApiController extends Controller
         $data = new comment;
         $data->user_id = $request->user_id;
         $data->comments = $request->comments;
-        $post->comment->save($data);
+        $post->comment()->save($data);
         echo "New Comments Saved";
     }
 
