@@ -57,3 +57,31 @@ Route::post('/deletedata',[ApiController::class,'deletedata']);
    * Retrive Comments
    */
   Route::get('/getAllCommentsByPost/{id}',[ApiController::class,'getAllCommentsByPost']);
+
+  Route::post('/registration',[ApiController::class,'registration']);
+
+  Route::post('/login',[ApiController::class,'login']);
+
+  Route::group(['prefix'=>'test'],function(){
+      Route::post('/readdata',[ApiController::class,'readdata']);
+  });
+
+
+  Route::post('/userregistration',[ApiController::class,'userregistration']);
+
+  Route::post('/userlogin',[ApiController::class,'userlogin']);
+
+
+  Route::group(['prefix'=>'admin'],function(){
+      Route::post('/user',[ApiController::class,'testAdmin']);
+      Route::post('/getuser',[ApiController::class,'getUser']);
+  });
+
+  Route::group(['prefix'=>'user'],function(){
+    Route::post('/user',[ApiController::class,'testUser']);
+    Route::post('/getuser',[ApiController::class,'getUsers']);
+});
+
+  Route::group(['prefix'=>'test'],function(){
+    Route::post('/readdata',[ApiController::class,'readdata']);
+});

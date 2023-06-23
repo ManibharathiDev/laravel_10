@@ -8,9 +8,78 @@ use App\Models\User;
 use App\Models\post;
 use App\Models\comment;
 use Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
+
+    public function userregistration(Request $request)
+    {
+        try{
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
+            $user = User::create($input);
+            $result = array();
+            $result['success'] = 1;
+            $result['data'] = $user;
+            return json_encode($result);
+        }
+        catch(\Exception $e)
+        {
+            $result = array();
+            $result['success'] = 0;
+            $result['data'] = $e;
+            return json_encode($result);
+        }
+    }
+
+    public function userlogin(Request $request)
+    {
+       if(Auth::attempt(["email"=>$request->email,"password"=>$request->password]))
+       {
+            $user = Auth::user();
+            return json_encode($user);
+       }
+       else
+            {
+                $result = array();
+                $result['success'] = 0;
+                $result['data'] = "Invalid Credentials";
+                return json_encode($result);
+            
+            }
+    }
+
+
+    public function registration(Request $request)
+    {
+       
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+        $user = User::create($input);
+        echo "Registration Successfull";
+    }
+
+    public function login(Request $request)
+    {
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
+        {
+            $user = Auth::user();
+            return json_encode($user);
+            //echo "Login Success";
+        }
+        else
+        {
+            echo "Invalid Login";
+        }
+    }
+
+    public function readdata()
+    {
+        echo "Welcome My read";
+    }
+
     //
     public function updateData(Request $request)
     {
@@ -158,6 +227,22 @@ class ApiController extends Controller
         $data = post::find($id);
         $comments = $data->comments;
         return json_encode($comments);
+    }
+
+    public function testAdmin(){
+        echo "I am from the test admin middleware";
+    }
+
+    public function getUser(){
+        echo "I am get User";
+    }
+
+    public function testUser(){
+        echo "I am from the test user middleware";
+    }
+
+    public function getUsers(){
+        echo "I am get Users";
     }
 
     
