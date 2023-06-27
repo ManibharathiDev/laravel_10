@@ -245,5 +245,25 @@ class ApiController extends Controller
         echo "I am get Users";
     }
 
+    public function vote(Request $request)
+    {
+        $result['success'] = 1;
+             $result['reason'] = "Your vote has been successfully registered";
+            return json_encode($result);
+        // $result = array();
+        // if($request->age < 18)
+        // {
+        //     $result['success'] = 0;
+        //     $result['reason'] = "You are not qualified";
+        //     return json_encode($result);
+        // }
+        // else
+        // {
+        //     $result['success'] = 1;
+        //     $result['reason'] = "Your vote has been successfully registered";
+        //     return json_encode($result);
+        // }
+    }
+
     
 }

@@ -85,3 +85,7 @@ Route::post('/deletedata',[ApiController::class,'deletedata']);
   Route::group(['prefix'=>'test'],function(){
     Route::post('/readdata',[ApiController::class,'readdata']);
 });
+
+Route::post('/vote',[ApiController::class,'vote'])->middleware('age');
+
+
