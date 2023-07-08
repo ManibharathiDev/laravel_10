@@ -2,11 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DateHelpers;
+use App\Mail\TestEmail;
 use Illuminate\Http\Request;
 use App\Models\Students;
+use UserDate;
+use Illuminate\Support\Facades\Mail;
+
 
 class StudentController extends Controller
 {
+
+
+    public function sendEmail()
+    {
+        $students = Students::find(1);
+        Mail::to($students->email)->send(new TestEmail($students));
+    }
+
+    public function testhelper()
+    {
+        echo "Test Helper";
+        echo DateHelpers::getCurrentDate();
+    }
+
     //
 
     //Retrieve All Data

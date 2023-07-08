@@ -23,3 +23,7 @@ Route::get('/home/{id}',[StudentController::class,'homeSearch']);
 
 Route::post('/create',[StudentController::class,'create'])->name('create');
 Route::post('/update',[StudetnController::class,'update'])->name('update');
+
+Route::get('/testhelper',[StudentController::class,'testhelper']);
+
+Route::post('/sendEmail',[StudentController::class,'sendEmail']);
